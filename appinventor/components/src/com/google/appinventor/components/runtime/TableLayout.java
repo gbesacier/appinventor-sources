@@ -30,6 +30,8 @@ public class TableLayout implements Layout {
 
   private int numColumns;
   private int numRows;
+  private int[] shrinkableColumns;
+  private int[] stretchableColumns;
 
   /**
    * Creates a new table layout.
@@ -98,6 +100,60 @@ public class TableLayout implements Layout {
       layoutManager.removeViews(newNumRows, numRows - newNumRows);
       numRows = newNumRows;
     }
+  }
+
+  String getShrinkableColumns() {
+    if(shrinkableColumns == null || shrinkableColumns.length == 0) {
+      return "";
+    }
+    StringBuffer ret = new StringBuffer();
+    ret.append(shrinkableColumns[0]);
+    for(int i = 1; i < shrinkableColumns.length; i++){
+      ret.append(",").append(shrinkableColumns[i]);
+    }
+    return ret.toString();
+  }
+
+  void setShrinkableColumns(String indexList) {
+    if(indexList.isEmpty()) {
+      shrinkableColumns = null;
+      return;
+    }
+    String indices[] = indexList.split(",");
+    shrinkableColumns = new int[indices.length];
+    for(int i = 0; i < indices.length; i++) {
+      shrinkableColumns[i] = Integer.parseInt(indices[i]);
+      layoutManager.setColumnShrinkable(shrinkableColumns[i] - 1, true); // Base-1 to base-0
+    }
+  }
+
+  String getStretchableColumns() {
+    if(stretchableColumns == null || stretchableColumns.length == 0) {
+      return "";
+    }
+    StringBuffer ret = new StringBuffer();
+    ret.append(stretchableColumns[0]);
+    for(int i = 1; i < stretchableColumns.length; i++){
+      ret.append(",").append(stretchableColumns[i]);
+    }
+    return ret.toString();
+  }
+
+  void setStretchableColumns(String indexList) {
+    if(indexList.isEmpty()) {
+      stretchableColumns = null;
+      return;
+    }
+    String indices[] = indexList.split(",");
+    stretchableColumns = new int[indices.length];
+    for(int i = 0; i < indices.length; i++) {
+      stretchableColumns[i] = Integer.parseInt(indices[i]);
+      layoutManager.setColumnStretchable(stretchableColumns[i] - 1, true); // Base-1 to base-0
+    }
+  }
+
+  void setColumnCollapsed(int columnIndex, boolean isCollapsed) {
+    layoutManager.setColumnCollapsed(columnIndex - 1, isCollapsed); // Base-1 to base-0
   }
 
   // Layout implementation

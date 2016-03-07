@@ -36,6 +36,7 @@ import com.google.appinventor.client.editor.youngandroid.properties.YoungAndroid
 import com.google.appinventor.client.editor.youngandroid.properties.YoungAndroidTextReceivingPropertyEditor;
 import com.google.appinventor.client.widgets.properties.CountryChoicePropertyEditor;
 import com.google.appinventor.client.widgets.properties.FloatPropertyEditor;
+import com.google.appinventor.client.widgets.properties.IndexListPropertyEditor;
 import com.google.appinventor.client.widgets.properties.IntegerPropertyEditor;
 import com.google.appinventor.client.widgets.properties.LanguageChoicePropertyEditor;
 import com.google.appinventor.client.widgets.properties.NonNegativeFloatPropertyEditor;
@@ -188,6 +189,8 @@ public class YoungAndroidPalettePanel extends Composite implements SimplePalette
       return new YoungAndroidComponentSelectorPropertyEditor(editor);
     } else if (editorType.equals(PropertyTypeConstants.PROPERTY_TYPE_FLOAT)) {
       return new FloatPropertyEditor();
+    } else if (editorType.equals(PropertyTypeConstants.PROPERTY_TYPE_INDEX_LIST)) {
+      return new IndexListPropertyEditor();
     } else if (editorType.equals(PropertyTypeConstants.PROPERTY_TYPE_INTEGER)) {
       return new IntegerPropertyEditor();
     } else if (editorType.equals(PropertyTypeConstants.PROPERTY_TYPE_LEGO_NXT_SENSOR_PORT)) {

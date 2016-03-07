@@ -378,8 +378,10 @@ public class YaVersion {
   // - CLOCK_COMPONENT_VERSION was incremented to 3
   // For YOUNG_ANDROID_VERSION 150:
   // - IMAGE_COMPONENT_VERSION was incremented to 3
+  // For YOUNG_ANDROID_VERSION 151:
+  // - TABLEARRANGEMENT_COMPONENT_VERSION was incremented to 2
 
-  public static final int YOUNG_ANDROID_VERSION = 150;
+  public static final int YOUNG_ANDROID_VERSION = 151;
 
   // ............................... Blocks Language Version Number ...............................
 
@@ -853,7 +855,9 @@ public class YaVersion {
 
   public static final int SPEECHRECOGNIZER_COMPONENT_VERSION = 1;
 
-  public static final int TABLEARRANGEMENT_COMPONENT_VERSION = 1;
+  // For TABLEARRANGEMENT_COMPONENT_VERSION 2:
+  // - The StretchableColumns and ShrinkableColumns properties were added.
+  public static final int TABLEARRANGEMENT_COMPONENT_VERSION = 2;
 
   // For TEXTBOX_COMPONENT_VERSION 2:
   // - The TextBox.NumbersOnly property was added.

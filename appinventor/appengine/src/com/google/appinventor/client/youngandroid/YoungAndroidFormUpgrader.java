@@ -308,6 +308,9 @@ public final class YoungAndroidFormUpgrader {
       } else if (componentType.equals("SoundRecorder")) {
         srcCompVersion = upgradeSoundRecorderProperties(componentProperties, srcCompVersion);
 
+      } else if (componentType.equals("TableArrangement")) {
+        srcCompVersion = upgradeTableArrangementProperties(componentProperties, srcCompVersion);
+
       } else if (componentType.equals("TimePicker")) {
         srcCompVersion = upgradeTimePickerProperties(componentProperties, srcCompVersion);
 
@@ -1219,6 +1222,15 @@ public final class YoungAndroidFormUpgrader {
     return srcCompVersion;
   }
 
+  private static int upgradeTableArrangementProperties(Map<String, JSONValue> componentProperties,
+      int srcCompVersion) {
+    if (srcCompVersion < 2) {
+      // The StretchableColumns and ShrinkableColumns properties were added. No blocks need to be modified
+      // to upgrqde to version 2.
+      srcCompVersion = 2;
+    }
+    return srcCompVersion;
+  }
 
   private static int upgradeTimePickerProperties(Map<String, JSONValue> componentProperties,
       int srcCompVersion) {

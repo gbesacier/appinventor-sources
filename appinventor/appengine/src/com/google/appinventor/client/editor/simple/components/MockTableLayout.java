@@ -77,6 +77,8 @@ final class MockTableLayout extends MockLayout {
 
   private int nrows;
   private int ncols;
+  private int ncolsShrinkable;
+  private int ncolsStretchable;
 
   // Position and size of each row and column in the table;
   // calculated in layoutContainer; used to calculate the correct
@@ -85,6 +87,8 @@ final class MockTableLayout extends MockLayout {
   private int[] rowHeights;
   private int[] colLefts;
   private int[] colWidths;
+  private boolean[] colShrinkable;
+  private boolean[] colStretchable;
 
   // The DIV element that displays the drop-target area.
   private Element dropTargetArea; // lazily initialized
@@ -105,6 +109,8 @@ final class MockTableLayout extends MockLayout {
     rowHeights = new int[nrows];
     colLefts = new int[ncols];
     colWidths = new int[ncols];
+    colShrinkable = new boolean[ncols];
+    colStretchable = new boolean[ncols];
 
     // Initialize layoutHeight and layoutWidth because they are used in getPreferredHeight and
     // getPreferredWidth.
@@ -123,7 +129,38 @@ final class MockTableLayout extends MockLayout {
     this.ncols = ncols;
     colLefts = new int[ncols];
     colWidths = new int[ncols];
+    colShrinkable = new boolean[ncols];
+    colStretchable = new boolean[ncols];
     container.refreshForm();
+  }
+
+
+  public void setStretchableColumns(String indexList) {
+    ncolsStretchable = 0;
+    Arrays.fill(colStretchable, false);
+
+    if(indexList.isEmpty()) {
+      return;
+    }
+    String indices[] = indexList.split(",");
+    for(int i = 0; i < indices.length; i++) {
+      colStretchable[Integer.parseInt(indices[i]) - 1] = true; // Base-1 to base-0
+      ncolsStretchable++;
+    }
+  }
+
+  public void setShrinkableColumns(String indexList) {
+    ncolsShrinkable = 0;
+    Arrays.fill(colShrinkable, false);
+
+    if(indexList.isEmpty()) {
+      return;
+    }
+    String indices[] = indexList.split(",");
+    for(int i = 0; i < indices.length; i++) {
+      colShrinkable[Integer.parseInt(indices[i]) - 1] = true; // Base-1 to base-0
+      ncolsShrinkable++;
+    }
   }
 
   // Drop target area
@@ -332,6 +369,7 @@ final class MockTableLayout extends MockLayout {
         }
       }
     }
+
     // If any column is completely empty, then its width in the designer should be EMPTY_COL_WIDTH.
     for (int col = 0; col < ncols; col++) {
       if (colEmpty[col]) {
@@ -339,6 +377,10 @@ final class MockTableLayout extends MockLayout {
       }
     }
 
+    updateChildrenSize(tableLayoutInfo);
+  }
+
+  void updateChildrenSize(TableLayoutInfo tableLayoutInfo) {
     // Set all childrens' widths to the column width.
     // This matches what happens on an Android device.
     for (int row = 0; row < nrows; row++) {
@@ -368,6 +410,32 @@ final class MockTableLayout extends MockLayout {
   @Override
   void layoutChildren(LayoutInfo containerLayoutInfo) {
     TableLayoutInfo tableLayoutInfo = (TableLayoutInfo) containerLayoutInfo;
+
+    int contWidth = tableLayoutInfo.width;
+    int totalWidth = 0;
+    for (int col = 0; col < ncols; col++) {
+      totalWidth += colWidths[col];
+    }
+
+    if(ncolsStretchable > 0 && totalWidth < contWidth) {
+      int toStretch = (contWidth - totalWidth) / ncolsStretchable;
+      for (int col = 0; col < ncols; col++) {
+        if (colStretchable[col]) {
+          colWidths[col] += toStretch;
+        }
+      }
+    }
+
+    if(ncolsShrinkable > 0 && totalWidth > contWidth) {
+      int toShrink = (totalWidth - contWidth) / ncolsShrinkable;
+      for (int col = 0; col < ncols; col++) {
+        if (colShrinkable[col]) {
+          colWidths[col] -= toShrink;
+        }
+      }
+    }
+
+    updateChildrenSize(tableLayoutInfo);
 
     // Call layoutChildren for children that are containers.
     // Position the children.

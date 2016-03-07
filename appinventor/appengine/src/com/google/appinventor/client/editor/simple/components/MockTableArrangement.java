@@ -25,6 +25,8 @@ public final class MockTableArrangement extends MockContainer {
   // Property names
   private static final String PROPERTY_NAME_COLUMNS = "Columns";
   private static final String PROPERTY_NAME_ROWS = "Rows";
+  private static final String PROPERTY_NAME_STRETCHABLE_COLUMNS = "StretchableColumns";
+  private static final String PROPERTY_NAME_SHRINKABLE_COLUMNS = "ShrinkableColumns";
 
   // Form UI components
   protected final AbsolutePanel layoutWidget;
@@ -72,6 +74,14 @@ public final class MockTableArrangement extends MockContainer {
     }
   }
 
+  private void setStretchableColumnsProperty(String value) {
+    ((MockTableLayout) layout).setStretchableColumns(value);
+  }
+
+  private void setShrinkableColumnsProperty(String value) {
+    ((MockTableLayout) layout).setShrinkableColumns(value);
+  }
+
   @Override
   public void onPropertyChange(String propertyName, String newValue) {
     super.onPropertyChange(propertyName, newValue);
@@ -81,6 +91,12 @@ public final class MockTableArrangement extends MockContainer {
       setColumnsProperty(newValue);
     } else if (propertyName.equals(PROPERTY_NAME_ROWS)) {
       setRowsProperty(newValue);
+    } else if (propertyName.equals(PROPERTY_NAME_STRETCHABLE_COLUMNS)) {
+      setStretchableColumnsProperty(newValue);
+      refreshForm();
+    } else if (propertyName.equals(PROPERTY_NAME_SHRINKABLE_COLUMNS)) {
+      setShrinkableColumnsProperty(newValue);
+      refreshForm();
     }
   }
 }

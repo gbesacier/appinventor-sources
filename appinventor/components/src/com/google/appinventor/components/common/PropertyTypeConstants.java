@@ -76,6 +76,12 @@ public class PropertyTypeConstants {
   public static final String PROPERTY_TYPE_FLOAT = "float";
 
   /**
+   * Index-list values.
+   * @see com.google.appinventor.client.widgets.properties.IndexListPropertyEditor
+   */
+  public static final String PROPERTY_TYPE_INDEX_LIST = "index_list";
+
+  /**
    * Integer values.
    * @see com.google.appinventor.client.widgets.properties.IntegerPropertyEditor
    */

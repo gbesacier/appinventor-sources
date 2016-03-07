@@ -10,6 +10,7 @@ import com.google.appinventor.components.annotations.DesignerComponent;
 import com.google.appinventor.components.annotations.DesignerProperty;
 import com.google.appinventor.components.annotations.SimpleObject;
 import com.google.appinventor.components.annotations.SimpleProperty;
+import com.google.appinventor.components.annotations.SimpleFunction;
 import com.google.appinventor.components.common.ComponentCategory;
 import com.google.appinventor.components.common.PropertyTypeConstants;
 import com.google.appinventor.components.common.YaVersion;
@@ -92,6 +93,71 @@ public class TableArrangement extends AndroidViewComponent
   public void Rows(int numRows) {
     viewLayout.setNumRows(numRows);
   }
+
+  /**
+   * StretchableColumns property getter method.
+   *
+   * @return  indexes of stretchable columns in this layout
+   */
+  @SimpleProperty(userVisible = false)
+  public String StretchableColumns() {
+    return viewLayout.getStretchableColumns();
+  }
+
+  /**
+   * StretchableColumns property setter method.
+   *
+   * @param numRows  indexes of stretchable columns in this layout
+   */
+  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INDEX_LIST,
+      defaultValue = "")
+  @SimpleProperty(userVisible = false)
+  public void StretchableColumns(String indexList) {
+    viewLayout.setStretchableColumns(indexList);
+  }
+
+  /**
+   * ShrinkableColumns property getter method.
+   *
+   * @return  indexes of shrinkable columns in this layout
+   */
+  @SimpleProperty(userVisible = false)
+  public String ShrinkableColumns() {
+    return viewLayout.getShrinkableColumns();
+  }
+
+  /**
+   * ShrinkableColumns property setter method.
+   *
+   * @param numRows  indexes of shrinkable columns in this layout
+   */
+  @DesignerProperty(editorType = PropertyTypeConstants.PROPERTY_TYPE_INDEX_LIST,
+      defaultValue = "")
+  @SimpleProperty(userVisible = false)
+  public void ShrinkableColumns(String indexList) {
+    viewLayout.setShrinkableColumns(indexList);
+  }
+
+  /**
+   * Make the specified column visible
+   *
+   * @param column column index, base 1
+   */
+  @SimpleFunction(description = "TODO")
+  public void ShowColumn(int column) {
+    viewLayout.setColumnCollapsed(column, false);
+  }
+
+  /**
+   * Make the specified column invisible
+   *
+   * @param column column index, base 1
+   */
+  @SimpleFunction(description = "TODO")
+  public void HideColumn(int column) {
+    viewLayout.setColumnCollapsed(column, true);
+  }
+
 
   // ComponentContainer implementation
 

@@ -2038,7 +2038,11 @@ Blockly.Versioning.AllUpgradeMaps =
   "TableArrangement": {
 
     //This is initial version. Placeholder for future upgrades
-    1: "noUpgrade"
+    1: "noUpgrade",
+
+    // The StretchableColumns and ShrinkableColumns properties were added.
+    // No blocks need to be modified to upgrade to version 2.
+    2: "noUpgrade"
 
   }, // End TableArrangementupgraders
 
