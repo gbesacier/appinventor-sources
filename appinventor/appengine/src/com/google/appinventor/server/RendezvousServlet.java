@@ -10,7 +10,7 @@
  *      with a WiFi connection.  This was originally written in Python
  *      using the "Bottle" micro-framework. Here is that code:
  *
- * #!/usr/bin/python
+ * #!/usr/bin/python2
  * from bottle import run,route,app,request,response,template,default_app,Bottle,debug,abort
  * from flup.server.fcgi import WSGIServer
  * from cStringIO import StringIO

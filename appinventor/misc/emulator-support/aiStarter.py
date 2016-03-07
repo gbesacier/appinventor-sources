@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 from bottle import run,route,app,request,response,template,default_app,Bottle,debug,abort
 import sys
 import os

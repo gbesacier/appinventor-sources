@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # Tool for managing the App Inventor whitelist. The whitelist
 # is stored in the App Engine Data Store. However it is only
